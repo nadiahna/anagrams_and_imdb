@@ -1,10 +1,10 @@
-import './App.css';
+import '../App.css';
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Modal, Input, Space } from 'antd';
 import { Link } from 'react-router-dom';
 
-const baseUri = `http://www.omdbapi.com/?apikey=2f677b89&s=Batman&page=2`;
+const baseUrl = `http://www.omdbapi.com/?apikey=2f677b89`;
 export default function ListMovie() {
   const words = ["kita", "atik", "tika", "aku", "kia", "makan", "kua"];
   const [imodb, setImodb] = useState(null);
@@ -25,17 +25,22 @@ export default function ListMovie() {
 
 //search
   const { Search } = Input;
-  const onSearch = value => console.log(value);
-
-//anagrams
-  useEffect(() => {
-    axios.get(baseUri).then((response) => {
+  const onSearch = (value, page) => {
+    const searchUrl = baseUrl+"&s="+value+"&page="+page
+    axios.get(searchUrl).then((response) => {
       setImodb(response.data.Search);
       console.log(response.data.Search);
     });
+    console.log(value);
+  }
+
+//getmovies
+  useEffect(() => {
+    onSearch("batman", "1")
   }, []);
   if (!imodb) return null;
-  
+
+  //anagrams
   const alphabetize = (word) => {
     if (!word) {
       return;
@@ -60,18 +65,17 @@ export default function ListMovie() {
   const PrintAnagrams = () => {
     for (const sortedWord in groupedAnagrams) {
       console.log(groupedAnagrams[sortedWord].toString());
-      return <p>{groupedAnagrams[sortedWord].toString()}</p>;
+    //   return <p>{groupedAnagrams[sortedWord].toString()}</p>;
     }
   };
   
 
   return (
     <div className="App">
-      <PrintAnagrams />
+      {/* <PrintAnagrams /> */}
       <Space direction="vertical">
         <Search
-          placeholder="input search text"
-          allowClear
+          placeholder="input title movie"
           enterButton="Search"
           size="large"
           onSearch={onSearch}
@@ -81,7 +85,7 @@ export default function ListMovie() {
         return (
           <>
         <div className="cardMovies" key={id}>
-          <img onClick={showModal} src={data.Poster} />
+          <img alt="poster" onClick={showModal} src={data.Poster} />
           <div>
             <h5>{data.Title}</h5>
             <p>Movie type : {data.Type}</p>
@@ -92,7 +96,7 @@ export default function ListMovie() {
             </Link>
           </div>
           <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-            <img src={data.Poster} />
+            <img alt="poster" src={data.Poster} />
           </Modal>
         </div>
        </>

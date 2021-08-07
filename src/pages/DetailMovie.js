@@ -1,0 +1,38 @@
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Card } from 'antd';
+
+const baseUri = 'http://www.omdbapi.com/?apikey=2f677b89&i=tt0372784';
+const { Meta } = Card;
+
+export default function DetailMovie() {
+    const [movieDetail, setMovieDetail]= useState(null);
+
+
+    useEffect(() => {
+        axios.get(baseUri).then((response) => {
+          setMovieDetail(response.data);
+          console.log(response.data);
+        });
+      }, []);
+      if (!movieDetail) return null;
+
+    return (
+        <div>
+             <Card
+                hoverable
+                style={{ width: '100%' }}
+                cover={<img alt="example" src={movieDetail.Poster} style={{ height: '50vh', width: '55vh', align: 'center' }}/>}
+            >
+                <Meta title={movieDetail.Title} description={movieDetail.Plot} />
+                <p>Ratings {movieDetail.Ratings[0].Value}</p>
+                <p>Release: {movieDetail.Released}</p>
+                <p>Type: {movieDetail.Type}</p>
+                <p>Genre: {movieDetail.Genre}</p>
+                <p>Actors: {movieDetail.Actors}</p>
+                <p>Production: {movieDetail.Production}</p>
+                <p>Writer: {movieDetail.Writer}</p>
+            </Card>
+        </div>
+    )
+}

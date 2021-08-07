@@ -1,8 +1,8 @@
 import './App.css';
 import React from "react";
 import { Switch, Route, BrowserRouter as Router, } from 'react-router-dom';
-import ListMovie from './ListMovie';
-import DetailMovie from './DetailMovie';
+import ListMovie from './pages/ListMovie';
+import DetailMovie from './pages/DetailMovie';
 
 export default function App({history}) {
 
