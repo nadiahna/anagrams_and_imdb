@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 const baseUrl = `http://www.omdbapi.com/?apikey=2f677b89`;
 export default function ListMovie() {
-  const words = ["kita", "atik", "tika", "aku", "kia", "makan", "kua"];
   const [imodb, setImodb] = useState(null);
   //modalposter
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -39,40 +38,10 @@ export default function ListMovie() {
     onSearch("batman", "1")
   }, []);
   if (!imodb) return null;
-
-  //anagrams
-  const alphabetize = (word) => {
-    if (!word) {
-      return;
-    }
-    word = word.split("");
-    word = word.sort();
-    word = word.join("");
-    return word;
-  };
-  const anagramGrouper = (words) => {
-    const anagrams = {};
-    words.forEach((word) => {
-      const sortedWord = alphabetize(word);
-      if (anagrams[sortedWord]) {
-        return anagrams[sortedWord].push(word);
-      }
-      anagrams[sortedWord] = [word];
-    });
-    return anagrams;
-  };
-  const groupedAnagrams = anagramGrouper(words);
-  const PrintAnagrams = () => {
-    for (const sortedWord in groupedAnagrams) {
-      console.log(groupedAnagrams[sortedWord].toString());
-    //   return <p>{groupedAnagrams[sortedWord].toString()}</p>;
-    }
-  };
-  
+ 
 
   return (
     <div className="App">
-      {/* <PrintAnagrams /> */}
       <Space direction="vertical">
         <Search
           placeholder="input title movie"
@@ -91,11 +60,11 @@ export default function ListMovie() {
             <p>Movie type : {data.Type}</p>
             <p>Movie Year : {data.Year}</p>
             <p>Movie Id : {data.imdbID}</p>
-            <Link to={`/detail-movie/${id}`}>
+            <Link to={`/detail-movie/${data.imdbID}`}>
                 <button>Detail Movie</button>
             </Link>
           </div>
-          <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+          <Modal title={data.Title} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
             <img alt="poster" src={data.Poster} />
           </Modal>
         </div>
