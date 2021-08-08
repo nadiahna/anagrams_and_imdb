@@ -27,7 +27,7 @@ export default function Anagram() {
         return anagrams;
       };
       const groupedAnagrams = anagramGrouper(words);
-      console.log(groupedAnagrams, 'anagrams')
+      console.log(groupedAnagrams, 'anagrams');
       const PrintAnagrams = () => {
         for (const sortedWord in groupedAnagrams) {
           console.log(groupedAnagrams[sortedWord].toString());

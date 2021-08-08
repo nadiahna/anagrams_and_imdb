@@ -90,7 +90,7 @@ const lastItemRef = useCallback(
       {imodb.map((data, id) =>
            id + 1 === data.length ? (
         <div reference={lastItemRef} className="cardMovies" key={id}>
-          <img alt="poster" onClick={showModal} src={data.Poster} />
+          <img alt={`Poster ${id}`} onClick={showModal} src={data.Poster} />
           <div>
             <h5>{data.Title}</h5>
             <p>Movie type : {data.Type}</p>
@@ -101,11 +101,11 @@ const lastItemRef = useCallback(
             </Link>
           </div>
           <Modal title={data.Title} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-            <img alt="poster" src={data.Poster} />
+            <img alt={`Poster ${id}`} src={data.Poster} />
           </Modal>
         </div>) : ( 
           <div className="cardMovies" key={id}>
-          <img alt="poster" onClick={showModal} src={data.Poster} />
+          <img alt={`Poster ${id}`} onClick={showModal} src={data.Poster} />
           <div>
             <h3>{data.Title}</h3>
             <p>Movie type : {data.Type}</p>
@@ -116,7 +116,7 @@ const lastItemRef = useCallback(
             </Link>
           </div>
           <Modal title={data.Title} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-            <img alt="poster" src={data.Poster} />
+            <img alt={`Poster ${id}`} src={data.Poster} />
           </Modal>
         </div>)
       )}
