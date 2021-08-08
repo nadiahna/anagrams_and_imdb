@@ -29,6 +29,7 @@ export default function DetailMovie() {
                 cover={<img alt="example" src={movieDetail.Poster} style={{ height: '50vh', width: '55vh', align: 'center' }}/>}
             >
                 <Meta title={movieDetail.Title} description={movieDetail.Plot} />
+                <br/>
                 <p>Ratings {movieDetail.Ratings[0].Value}</p>
                 <p>Release: {movieDetail.Released}</p>
                 <p>Type: {movieDetail.Type}</p>

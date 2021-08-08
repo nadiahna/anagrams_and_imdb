@@ -33,3 +33,7 @@ background: #212121;
   margin: 1rem;
 }
 
+.text-center {
+  text-align: center;
+  margin-top: 1rem;
+}
